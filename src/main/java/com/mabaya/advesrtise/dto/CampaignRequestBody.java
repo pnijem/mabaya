@@ -18,7 +18,7 @@ public class CampaignRequestBody {
   @JsonProperty("start_date")
   private Long startDate;
 
-  private List<Integer> products;
+  private List<Long> products;
 
   private Double bid;
 
