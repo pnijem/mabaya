@@ -2,7 +2,7 @@ package com.mabaya.advesrtise.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import jakarta.persistence.EntityManagerFactory;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -54,9 +54,7 @@ public class MabayaDbConfiguration {
   @Primary
   @Bean(name = "mabayaDbTransactionManager")
   public PlatformTransactionManager bigDbTransactionManager(
-      @Qualifier("mabayaDbEntityManagerFactory") EntityManagerFactory
-          mabayaDbEntityManagerFactory
-  ) {
+      @Qualifier("mabayaDbEntityManagerFactory") EntityManagerFactory mabayaDbEntityManagerFactory) {
     return new JpaTransactionManager(mabayaDbEntityManagerFactory);
   }
 
