@@ -25,4 +25,4 @@ Log level can be changed using the environment variable LOG_LEVEL
 ## Suggestions
 
 1. Cleanup inactive campaigns and move them to different table or other data store
-2. Use time-series DB for storing among others Campaigns
+2. Use Enum for categories
