@@ -1,10 +1,7 @@
 package com.mabaya.advesrtise.model;
 
 
-import com.mabaya.advesrtise.converter.JpaConverterJson;
-import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Product {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
 
@@ -34,8 +31,5 @@ public class Product {
 
   @Column(name = "serial_number")
   private String serialNumber;
-
-  @Convert(converter = JpaConverterJson.class)
-  private List<Long> campaigns;
 
 }

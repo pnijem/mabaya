@@ -6,11 +6,8 @@ import com.mabaya.advesrtise.model.Product;
 import com.mabaya.advesrtise.repository.ProductsRepository;
 import com.mabaya.advesrtise.repository.campaign.CampaignsRepository;
 import com.mabaya.advesrtise.service.MabayaAdService;
-import java.util.Comparator;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,50 +24,35 @@ public class MabayaAdServiceImpl implements MabayaAdService {
 
   @Override
   public Campaign createCampaign(CampaignRequestBody campaignInfo) {
+    List<Product> products = productsRepository.findAllById(campaignInfo.getProducts());
     Campaign campaign = Campaign.builder().name(campaignInfo.getName())
-        .startDate(campaignInfo.getStartDate()).products(campaignInfo.getProducts()).build();
+        .startDate(campaignInfo.getStartDate()).products(campaignInfo.getProducts())
+        .categories(products.stream().map(Product::getCategory).collect(Collectors.toList()))
+        .build();
     return campaignsRepository.save(campaign);
   }
 
   @Override
   public Product getActiveProductWithHighestBid(String category) {
 
-    List<Campaign> activeCampaigns = campaignsRepository.getActiveCampaigns(activeRangeDays);
+    Campaign activeCampaignsByCategory = campaignsRepository.getActiveCampaignsWithHighestBid(
+        category, activeRangeDays);
 
-    Set<Long> activeProductsIds = new HashSet<>();
-    activeCampaigns.forEach(
-        activeCampaign -> activeProductsIds.addAll(activeCampaign.getProducts()));
-
-    List<Product> activeProducts = productsRepository.findAllById(activeProductsIds);
-    List<Product> activeProductsByCategory = activeProducts.stream()
-        .filter(product -> category.equals(product.getCategory())).collect(Collectors.toList());
-
+    List<Long> productIds =
+        activeCampaignsByCategory != null ? activeCampaignsByCategory.getProducts()
+            : Collections.emptyList();
     //If there are no promoted product for the matching category
-    if (activeProductsByCategory.isEmpty()) {
-      activeProductsByCategory = activeProducts;
+    if (productIds.isEmpty()) {
+      //Fetch the active campaign with the highest bid regardless of the category
+      activeCampaignsByCategory = campaignsRepository.getActiveCampaignsWithHighestBid(
+          activeRangeDays);
+      productIds = activeCampaignsByCategory != null ? activeCampaignsByCategory.getProducts()
+          : Collections.emptyList();
     }
-    Set<Long> relevantCampaigns = new HashSet<>();
-    activeProductsByCategory.stream().map(Product::getCampaigns).forEach(relevantCampaigns::addAll);
-
-    List<Long> activeCampaignIds = activeCampaigns.stream().map(Campaign::getId)
-        .collect(Collectors.toList());
-    Set<Long> activeRelevantCampaigns = activeCampaignIds.stream()
-        .filter(relevantCampaigns::contains).collect(Collectors.toSet());
-
-    List<Campaign> activeCampaignsByCategory = campaignsRepository.findAllById(
-        activeRelevantCampaigns);
-
-    Optional<Campaign> highestBidCampaignOptional = activeCampaignsByCategory.stream()
-        .max(Comparator.comparing(Campaign::getBid));
-
-    if (highestBidCampaignOptional.isPresent()) {
-      Campaign highestBidCampaign = highestBidCampaignOptional.get();
-      return activeProductsByCategory.stream()
-          .filter(product -> highestBidCampaign.getProducts().contains(product.getId())).findFirst()
-          .orElse(null);
+    if (!productIds.isEmpty()) {
+      return productsRepository.findById(productIds.get(0)).orElse(null);
     }
     return null;
-
   }
 
 }

@@ -1,7 +1,7 @@
 package com.mabaya.advesrtise.controller;
 
 import com.mabaya.advesrtise.dto.CampaignRequestBody;
-import com.mabaya.advesrtise.dto.CampaignResponseBody;
+import com.mabaya.advesrtise.model.Campaign;
 import com.mabaya.advesrtise.model.Product;
 import com.mabaya.advesrtise.service.MabayaAdService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,11 +34,10 @@ public class MabayaAdController {
           @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)})})
 
   @PostMapping(value = "/campaign", consumes = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<CampaignResponseBody> createCampaign(
+  public ResponseEntity<Campaign> createCampaign(
       @Valid @RequestBody CampaignRequestBody requestBody) {
-    mabayaAdService.createCampaign(requestBody);
-    return ResponseEntity.status(HttpStatus.CREATED).body(CampaignResponseBody.builder().build());
-
+    Campaign campaign = mabayaAdService.createCampaign(requestBody);
+    return ResponseEntity.status(HttpStatus.CREATED).body(campaign);
   }
 
   @Operation(summary =
