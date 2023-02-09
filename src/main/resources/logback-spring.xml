@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <property name="LOGS" value="./logs"/>
+
+  <appender name="CONSOLE_APP"
+    class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>
+        %d{yyyy-MM-dd'T'HH:mm:ss.SSS} %-5level ; %msg%n
+      </Pattern>
+    </layout>
+  </appender>
+  <appender name="CONSOLE_3RD_PARTY"
+    class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>
+        %d{yyyy-MM-dd'T'HH:mm:ss.SSS} %-5level %msg%n
+      </Pattern>
+    </layout>
+  </appender>
+
+
+  <springProperty scope="context" name="logLevel" source="mabaya.log.level"/>
+  <root name="com.mabaya.advesrtise" level="${logLevel}">
+    <appender-ref ref="CONSOLE_APP"/>
+  </root>
+
+  <logger name="org.springframework" level="${logLevel}" additivity="false">
+    <appender-ref ref="CONSOLE_3RD_PARTY"/>
+  </logger>
+  <logger name="org.hibernate" level="${logLevel}" additivity="false">
+    <appender-ref ref="CONSOLE_3RD_PARTY"/>
+  </logger>
+  <logger name="com.zaxxer.hikari" level="${logLevel}" additivity="false">
+    <appender-ref ref="CONSOLE_3RD_PARTY"/>
+  </logger>
+  <logger name="org.apache" level="${logLevel}" additivity="false">
+    <appender-ref ref="CONSOLE_3RD_PARTY"/>
+  </logger>
+  <logger name="io.micrometer.core.util" level="${logLevel}" additivity="false">
+    <appender-ref ref="CONSOLE_3RD_PARTY"/>
+  </logger>
+  <logger name="org.jboss" level="${logLevel}" additivity="false">
+    <appender-ref ref="CONSOLE_3RD_PARTY"/>
+  </logger>
+
+
+</configuration>
