@@ -1,0 +1,6 @@
+mabaya:
+  db:
+    datasource:
+      jdbc-url: jdbc:mysql://localhost:3306/mabaya
+      username: root
+      password: root

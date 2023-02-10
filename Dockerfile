@@ -9,5 +9,4 @@ FROM bellsoft/liberica-openjdk-alpine:11.0.17
 
 COPY --from=MAVEN_BUILD /usr/src/app/target/proc-trackings-processor.jar  /usr/app/mabaya-ad.jar
 
-#ENTRYPOINT ["java", "-Dspring.profiles.active=${environment}","-jar", "/usr/app/mabaya-ad.jar"]
-ENTRYPOINT ["java","-jar", "/usr/app/mabaya-ad.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=${environment}","-jar", "/usr/app/mabaya-ad.jar"]

@@ -7,14 +7,23 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mabaya
-    volumes:
-      - ./sql_scripts/:/var/www/html/sql_scripts
     ports:
       - '3306:3306'
     command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./sql_scripts/:/var/www/html/sql_scripts
     networks:
       - mabaya-network
 
+#  mabaya-ad-service:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    networks:
+#      - mabaya-network
+#    env_file:
+#      - dev_env
+
 networks:
   mabaya-network:
-    name: default
+    name: default-mabaya
