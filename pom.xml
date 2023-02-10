@@ -16,7 +16,7 @@
   <description>mabaya</description>
   <properties>
     <java.version>11</java.version>
-    <springdoc.version>1.5.8</springdoc.version>
+    <springdoc.version>1.6.12</springdoc.version>
   </properties>
   <dependencies>
     <dependency>
