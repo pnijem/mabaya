@@ -15,14 +15,14 @@ services:
     networks:
       - mabaya-network
 
-#  mabaya-ad-service:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    networks:
-#      - mabaya-network
-#    env_file:
-#      - dev_env
+  mabaya-ad-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - mabaya-network
+    env_file:
+      - dev_env
 
 networks:
   mabaya-network:
