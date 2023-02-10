@@ -57,8 +57,16 @@ Please follow the steps below:
 
 ## Working Locally Docker
 
-1. Run from the root of this project`docker-compose up -d` command
+1. Run from the root of this project`docker-compose up --build -d` command
 2. Make sure mabaya-ad container is up
+3. Run ``docker ps`` to have the list of container IDs for running the rest of the steps
+4. Run ``docker exec -it <mabaya-db-container-id> sh`` to open shell from within the container and
+   then run:
+
+```shell
+root:/var/www/html/sql_scripts# mysql -h mabaya-db -uroot -proot mabaya < mabaya_db.sql
+root:/var/www/html/sql_scripts# exit
+```
 
 ## Local Testing
 
@@ -74,5 +82,3 @@ Log level can be changed using the environment variable LOG_LEVEL
 4. Spring Boot 3 + Java 17 + Native image support
 5. Generics for the converter
 6. Configurable active days
-7. Logging
-8. Include SQL script within the volume dir

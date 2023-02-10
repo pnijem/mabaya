@@ -12,24 +12,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoDataService implements CommandLineRunner {
 
-  private static final List<String> categories = List.of("clothing", "electronics", "sports",
+  private static final List<String> CATEGORIES = List.of("clothing", "electronics", "sports",
       "food", "cosmetics");
-  private final ProductsRepository productsRepository;
 
+  private final static int DEMO_PRODUCTS_NUM = 100;
+  private final ProductsRepository productsRepository;
   private final Random random;
 
   @Override
   public void run(String... args) {
 
-    if (productsRepository.count() != 100) {
+    if (productsRepository.count() != DEMO_PRODUCTS_NUM) {
       double price = 99.9;
       Product product;
-      for (int i = 1; i <= 100; i++) {
-        product = Product.builder()
-            .price(price)
-            .title(generateRandomString())
-            .serialNumber(generateRandomString())
-            .category(getRandomCategory()).build();
+      for (int i = 1; i <= DEMO_PRODUCTS_NUM; i++) {
+        product = Product.builder().price(price).title(generateRandomString())
+            .serialNumber(generateRandomString()).category(getRandomCategory()).build();
 
         productsRepository.save(product);
       }
@@ -37,7 +35,7 @@ public class DemoDataService implements CommandLineRunner {
   }
 
   private String getRandomCategory() {
-    return categories.get(random.nextInt(categories.size()));
+    return CATEGORIES.get(random.nextInt(CATEGORIES.size()));
   }
 
   private String generateRandomString() {
