@@ -75,3 +75,4 @@ Log level can be changed using the environment variable LOG_LEVEL
 5. Generics for the converter
 6. Configurable active days
 7. Logging
+8. Include SQL script within the volume dir
