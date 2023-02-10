@@ -1,4 +1,4 @@
-package com.mabaya.advesrtise.converter;
+package com.mabaya.advertise.converter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Converter(autoApply = true)
 @Slf4j
 @AllArgsConstructor
-public class LongListToJsonConverter implements AttributeConverter<List<Long>, String> {
+public class IntegerListToJsonConverter implements AttributeConverter<List<Integer>, String> {
 
   private final ObjectMapper objectMapper = JsonMapper.builder()
       .enable(MapperFeature.DEFAULT_VIEW_INCLUSION)
@@ -23,7 +23,7 @@ public class LongListToJsonConverter implements AttributeConverter<List<Long>, S
 
 
   @Override
-  public String convertToDatabaseColumn(List<Long> attribute) {
+  public String convertToDatabaseColumn(List<Integer> attribute) {
     try {
       return objectMapper.writeValueAsString(attribute);
     } catch (JsonProcessingException ex) {
@@ -33,7 +33,7 @@ public class LongListToJsonConverter implements AttributeConverter<List<Long>, S
   }
 
   @Override
-  public List<Long> convertToEntityAttribute(String dbData) {
+  public List<Integer> convertToEntityAttribute(String dbData) {
     try {
       if (dbData == null) {
         return null;

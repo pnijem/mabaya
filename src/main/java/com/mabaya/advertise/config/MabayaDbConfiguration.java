@@ -1,4 +1,4 @@
-package com.mabaya.advesrtise.config;
+package com.mabaya.advertise.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(
     entityManagerFactoryRef = "mabayaDbEntityManagerFactory",
     transactionManagerRef = "mabayaDbTransactionManager",
-    basePackages = {"com.mabaya.advesrtise.repository.campaign"}
+    basePackages = {"com.mabaya.advertise.repository"}
 )
 public class MabayaDbConfiguration {
 
@@ -46,8 +46,8 @@ public class MabayaDbConfiguration {
     return
         builder
             .dataSource(dataSource)
-            .packages("com.mabaya.advertise.model.campaign")
-            .persistenceUnit("campaign")
+            .packages("com.mabaya.advertise.model")
+            .persistenceUnit("mabaya-db")
             .build();
   }
 

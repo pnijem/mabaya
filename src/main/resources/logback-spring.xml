@@ -21,7 +21,7 @@
 
 
   <springProperty scope="context" name="logLevel" source="mabaya.log.level"/>
-  <root name="com.mabaya.advesrtise" level="${logLevel}">
+  <root name="com.mabaya.advertise" level="${logLevel}">
     <appender-ref ref="CONSOLE_APP"/>
   </root>
 
