@@ -41,6 +41,10 @@ The module should provide 2 APIs:
    ● For simplicity, if more than one product is found, you may return thefirst or random.
    ii. The response is in JSON format
 
+## APIs Documentation
+
+Please check the Swagger UI [page](http://localhost:8080/swagger-ui/index.html)
+
 ## Working Locally
 
 Please follow the steps below:
@@ -48,7 +52,8 @@ Please follow the steps below:
 1. Install [maven](https://maven.apache.org/download.cgi) and set environment variable for it.
 2. Install [Java](https://www.oracle.com/java/technologies/downloads/#jdk17-windows) 11 and set
    environment variable.
-3. Add `LOG_LEVEL` environment variable with the required value i.e. `INFO`, `ERROR`, `DEBUG`
+3. Add the required Active Spring Profile to the VM options i.e. `-Dspring.profiles.active=local`
+4. Add `LOG_LEVEL` environment variable with the required value i.e. `INFO`, `ERROR`, `DEBUG`
 
 ## Working Locally Docker
 
@@ -61,7 +66,12 @@ Please follow the steps below:
 
 Log level can be changed using the environment variable LOG_LEVEL
 
-## Suggestions
+## Suggestions & TODO
 
 1. Cleanup inactive campaigns and move them to different table or other data store
 2. Use Enum for categories
+3. Exception handling + clear and meaningful responses to the user
+4. Spring Boot 3 + Java 17 + Native image support
+5. Generics for the converter
+6. Configurable active days
+7. Logging
