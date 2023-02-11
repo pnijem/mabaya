@@ -54,11 +54,13 @@ Please follow the steps below:
    environment variable.
 3. Add the required Active Spring Profile to the VM options i.e. `-Dspring.profiles.active=local`
 4. Add `LOG_LEVEL` environment variable with the required value i.e. `INFO`, `ERROR`, `DEBUG`
+5. Make sure mabaya-ad container is up
+6. Start the app
 
 ## Working Locally Docker
 
 1. Run from the root of this project`docker-compose up --build -d` command
-2. Make sure mabaya-ad container is up
+2. Make sure mabaya-ad and mabaya-db containers are up
 3. Run ``docker ps`` to have the list of container IDs for running the rest of the steps
 4. Run ``docker exec -it <mabaya-db-container-id> sh`` to open shell from within the container and
    then run:
@@ -78,7 +80,7 @@ Log level can be changed using the environment variable LOG_LEVEL
 
 1. Cleanup inactive campaigns and move them to different table or other data store
 2. Use Enum for categories
-3. Exception handling + clear and meaningful responses to the user
-4. Spring Boot 3 + Java 17 + Native image support
-5. Generics for the converter
-6. Configurable active days
+3. Spring Boot 3 + Java 17 + Native image support
+4. Generics for the converter
+5. Configurable active days
+6. Use MongoDB as it is more natural for storing JSON based data (semi-structured)

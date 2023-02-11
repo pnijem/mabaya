@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@Validated
 @AllArgsConstructor
 @RequestMapping("/api/v1")
 public class MabayaAdController {
@@ -34,7 +36,10 @@ public class MabayaAdController {
   @Operation(summary = "Endpoint for creating a new Campaign")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "A Campaign successfully created", content = {
-          @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)})})
+          @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)}),
+      @ApiResponse(responseCode = "400", description = "Bad request", content = {
+          @Content(mediaType = MediaType.TEXT_PLAIN_VALUE)})
+  })
 
   @PostMapping(value = "/campaign", consumes = {MediaType.APPLICATION_JSON_VALUE})
   public ResponseEntity<CampaignAll> createCampaign(
@@ -53,11 +58,14 @@ public class MabayaAdController {
       @ApiResponse(responseCode = "200", description = "A Product successfully returned", content = {
           @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)}),
       @ApiResponse(responseCode = "404", description = "No Product has been found", content = {
-          @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)})})
+          @Content(mediaType = MediaType.TEXT_PLAIN_VALUE)}),
+      @ApiResponse(responseCode = "400", description = "Bad request", content = {
+          @Content(mediaType = MediaType.TEXT_PLAIN_VALUE)})
+  })
 
   @GetMapping(value = "/ad/product")
   public ResponseEntity<Product> getAdvertisedProduct(
-      @NotBlank @RequestParam(name = "category") String category) {
+      @RequestParam(name = "category") @NotBlank String category) {
     log.info("Start getAdvertisedProduct()");
     Product product = mabayaAdService.getActiveProductWithHighestBid(category);
     if (product == null) {
