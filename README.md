@@ -44,6 +44,7 @@ The module should provide 2 APIs:
 ## APIs Documentation
 
 Please check the Swagger UI [page](http://localhost:8080/swagger-ui/index.html)
+Also there is the actuator endpoints
 
 ## Working Locally
 
@@ -84,3 +85,4 @@ Log level can be changed using the environment variable LOG_LEVEL
 4. Generics for the converter
 5. Configurable active days
 6. Use MongoDB as it is more natural for storing JSON based data (semi-structured)
+7. Unit tests
