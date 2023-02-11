@@ -1,6 +1,7 @@
 package com.mabaya.advertise.model;
 
 import com.mabaya.advertise.converter.IntegerListToJsonConverter;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Campaign {
+public class Campaign implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
