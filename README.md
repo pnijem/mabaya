@@ -88,3 +88,4 @@ Log level can be changed using the environment variable LOG_LEVEL
 7. Unit tests
 8. Caching of getActiveProductWithHighestBid() result using cache related annotations
 9. Use Actuator for health and basic monitoring
+10. New product_id, category_id columns and set it as PKs
