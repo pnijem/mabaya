@@ -6,7 +6,6 @@ import com.mabaya.advertise.model.CampaignAll;
 import com.mabaya.advertise.model.CampaignCategories;
 import com.mabaya.advertise.model.Product;
 import com.mabaya.advertise.repository.CampaignCategoriesRepository;
-import com.mabaya.advertise.repository.CampaignsAllRepository;
 import com.mabaya.advertise.repository.CampaignsRepository;
 import com.mabaya.advertise.repository.ProductsRepository;
 import com.mabaya.advertise.service.MabayaAdService;
@@ -26,7 +25,6 @@ public class MabayaAdServiceImpl implements MabayaAdService {
 
 
   private final CampaignsRepository campaignsRepository;
-  private final CampaignsAllRepository campaignsAllRepository;
   private final ProductsRepository productsRepository;
   private final CampaignCategoriesRepository campaignCategoriesRepository;
 
@@ -53,7 +51,7 @@ public class MabayaAdServiceImpl implements MabayaAdService {
 
     log.info("Saving new campaign categories mapping to DB...");
     CampaignCategories campaignCategories = CampaignCategories.builder()
-        .campaignId(campaign.getId()).categories(categories).build();
+        .campaign(campaign).categories(categories).build();
     campaignCategories = campaignCategoriesRepository.save(campaignCategories);
     log.info("Saved new mapping: {}", campaignCategories);
 
@@ -67,7 +65,7 @@ public class MabayaAdServiceImpl implements MabayaAdService {
   @Override
   public Product getActiveProductWithHighestBid(String category) {
     log.info("Fetch active Campaign with highest bid according to input category: {}", category);
-    CampaignAll activeCampaignsByCategory = campaignsAllRepository.getActiveCampaignsWithHighestBid(
+    Campaign activeCampaignsByCategory = campaignsRepository.getActiveCampaignsWithHighestBid(
         category);
 
     List<Integer> productIds =
@@ -77,7 +75,7 @@ public class MabayaAdServiceImpl implements MabayaAdService {
     if (productIds.isEmpty()) {
       log.info("Couldn't find Campaign with products of the required category");
       //Fetch the active campaign with the highest bid regardless of the category
-      activeCampaignsByCategory = campaignsAllRepository.getActiveCampaignsWithHighestBid();
+      activeCampaignsByCategory = campaignsRepository.getActiveCampaignsWithHighestBid();
       productIds = activeCampaignsByCategory != null ? activeCampaignsByCategory.getProducts()
           : Collections.emptyList();
     }
