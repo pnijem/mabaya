@@ -4,6 +4,7 @@ import com.mabaya.advertise.model.Product;
 import com.mabaya.advertise.repository.ProductsRepository;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class DemoDataService implements CommandLineRunner {
       Product product;
       for (int i = 1; i <= DEMO_PRODUCTS_NUM; i++) {
         product = Product.builder().price(price).title(generateRandomString())
-            .serialNumber(generateRandomString()).category(getRandomCategory()).build();
+            .serialNumber(UUID.randomUUID().toString()).category(getRandomCategory()).build();
 
         productsRepository.save(product);
       }

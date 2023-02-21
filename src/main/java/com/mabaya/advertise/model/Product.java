@@ -33,7 +33,7 @@ public class Product implements Serializable {
 
   private Double price;
 
-  @Column(name = "serial_number", length = 10)
+  @Column(name = "serial_number", length = 36)
   private String serialNumber;
 
 }

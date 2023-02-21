@@ -79,7 +79,7 @@ CREATE TABLE `products` (
   `title` varchar(10) DEFAULT NULL,
   `category` enum('clothing','electronics','sports','food','cosmetics') DEFAULT NULL,
   `price` double DEFAULT NULL,
-  `serial_number` varchar(10) DEFAULT NULL,
+  `serial_number` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
