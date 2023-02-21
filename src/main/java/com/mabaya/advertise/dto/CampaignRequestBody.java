@@ -1,6 +1,7 @@
 package com.mabaya.advertise.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CampaignRequestBody {
+public class CampaignRequestBody implements Serializable {
 
   @NotBlank
   private String name;

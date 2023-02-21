@@ -1,13 +1,13 @@
 package com.mabaya.advertise.service;
 
 import com.mabaya.advertise.dto.CampaignRequestBody;
-import com.mabaya.advertise.model.CampaignAll;
-import com.mabaya.advertise.model.Product;
+import com.mabaya.advertise.dto.CampaignResponse;
+import com.mabaya.advertise.dto.ProductResponse;
 
 public interface MabayaAdService {
 
-  CampaignAll createCampaign(CampaignRequestBody campaignInfo);
+  CampaignResponse createCampaign(CampaignRequestBody campaignInfo);
 
-  Product getActiveProductWithHighestBid(String category);
+  ProductResponse getActiveProductWithHighestBid(String category);
 
 }
