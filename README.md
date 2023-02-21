@@ -86,3 +86,5 @@ Log level can be changed using the environment variable LOG_LEVEL
 5. Configurable active days
 6. Use MongoDB as it is more natural for storing JSON based data (semi-structured)
 7. Unit tests
+8. Caching of getActiveProductWithHighestBid() result using cache related annotations
+9. Use Actuator for health and basic monitoring
