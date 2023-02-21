@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `mabaya` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `mabaya`;
 -- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: mabaya
@@ -24,10 +26,11 @@ DROP TABLE IF EXISTS `campaign_categories`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `campaign_categories` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `campaign_id` bigint NOT NULL,
+  `campaign_id` int unsigned NOT NULL,
   `categories` json DEFAULT NULL,
-  PRIMARY KEY (`id`,`campaign_id`),
-  UNIQUE KEY `category_id_UNIQUE` (`campaign_id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `campaign_id_UNIQUE` (`campaign_id`),
+  CONSTRAINT `fk_categories` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -103,4 +106,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-10 17:28:07
+-- Dump completed on 2023-02-21 20:13:34
