@@ -11,6 +11,7 @@ import com.mabaya.advertise.repository.CampaignProductRepository;
 import com.mabaya.advertise.repository.CampaignsRepository;
 import com.mabaya.advertise.repository.ProductsRepository;
 import com.mabaya.advertise.service.MabayaAdService;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -72,8 +73,9 @@ public class MabayaAdServiceImpl implements MabayaAdService {
     Campaign activeCampaignsByCategory = campaignsRepository.getActiveCampaignsWithHighestBid(
         category);
 
-    List<Integer> productIds = campaignProductRepository.getCampaignProducts(
-        activeCampaignsByCategory.getId());
+    List<Integer> productIds =
+        activeCampaignsByCategory != null ? campaignProductRepository.getCampaignProducts(
+            activeCampaignsByCategory.getId()) : Collections.emptyList();
 
     //If there are no promoted product for the matching category
     if (productIds == null || productIds.isEmpty()) {
