@@ -1,8 +1,8 @@
 package com.mabaya.advertise.controller;
 
 import com.mabaya.advertise.dto.CampaignRequestBody;
-import com.mabaya.advertise.model.CampaignAll;
-import com.mabaya.advertise.model.Product;
+import com.mabaya.advertise.dto.CampaignResponse;
+import com.mabaya.advertise.dto.ProductResponse;
 import com.mabaya.advertise.service.MabayaAdService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,11 +42,12 @@ public class MabayaAdController {
   })
 
   @PostMapping(value = "/campaign", consumes = {MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<CampaignAll> createCampaign(
+  public ResponseEntity<CampaignResponse> createCampaign(
       @Valid @RequestBody CampaignRequestBody requestBody) {
     log.info("Start createCampaign()");
-    CampaignAll campaign = mabayaAdService.createCampaign(requestBody);
-    ResponseEntity<CampaignAll> response = ResponseEntity.status(HttpStatus.CREATED).body(campaign);
+    CampaignResponse campaign = mabayaAdService.createCampaign(requestBody);
+    ResponseEntity<CampaignResponse> response = ResponseEntity.status(HttpStatus.CREATED)
+        .body(campaign);
     log.info("Finish createCampaign()");
     return response;
   }
@@ -64,14 +65,14 @@ public class MabayaAdController {
   })
 
   @GetMapping(value = "/ad/product")
-  public ResponseEntity<Product> getAdvertisedProduct(
+  public ResponseEntity<ProductResponse> getAdvertisedProduct(
       @RequestParam(name = "category") @NotBlank String category) {
     log.info("Start getAdvertisedProduct()");
-    Product product = mabayaAdService.getActiveProductWithHighestBid(category);
+    ProductResponse product = mabayaAdService.getActiveProductWithHighestBid(category);
     if (product == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
-    ResponseEntity<Product> response = ResponseEntity.status(HttpStatus.OK).body(product);
+    ResponseEntity<ProductResponse> response = ResponseEntity.status(HttpStatus.OK).body(product);
     log.info("Finish getAdvertisedProduct()");
     return response;
   }
